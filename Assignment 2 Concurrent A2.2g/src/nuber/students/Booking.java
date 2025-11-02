@@ -27,7 +27,12 @@ public class Booking implements Callable<BookingResult>	{
 	
 	private static final AtomicInteger nextId = new AtomicInteger(1);
 	
-	private static int bookingId; 
+	private final int bookingId;
+	private final NuberDispatch dispatch;
+	private final Passenger passenger;
+	private final long createdTime;
+	
+	
 	
 
 		
@@ -41,6 +46,7 @@ public class Booking implements Callable<BookingResult>	{
 	 */
 	public Booking(NuberDispatch dispatch, Passenger passenger)
 	{
+		
 	}
 	
 	/**
