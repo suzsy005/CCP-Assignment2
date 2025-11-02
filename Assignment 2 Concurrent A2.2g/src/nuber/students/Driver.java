@@ -2,11 +2,15 @@ package nuber.students;
 
 public class Driver extends Person {
 
-	
+	// the passenger currently riding
+	private Passenger currentPassenger;
 	
 	public Driver(String driverName, int maxSleep)
 	{
+		super(driverName, maxSleep);
 		
+		// no passenger on default state
+		this.currentPassenger = null;
 	}
 	
 	/**
@@ -18,6 +22,12 @@ public class Driver extends Person {
 	 */
 	public void pickUpPassenger(Passenger newPassenger)
 	{
+		// take a passenger
+		this.currentPassenger = newPassenger;
+		
+		// random sleep from 0 ~ maxSleep
+		int sleepTime = (int)(Math.random() * (maxSleep + 1));
+		Thread.sleep(sleepTime);
 	}
 
 	/**
