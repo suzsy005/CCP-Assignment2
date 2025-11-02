@@ -20,7 +20,7 @@ public class Driver extends Person {
 	 * @param newPassenger Passenger to collect
 	 * @throws InterruptedException
 	 */
-	public void pickUpPassenger(Passenger newPassenger)
+	public void pickUpPassenger(Passenger newPassenger) throws InterruptedException
 	{
 		// take a passenger
 		this.currentPassenger = newPassenger;
@@ -36,7 +36,7 @@ public class Driver extends Person {
 	 * 
 	 * @throws InterruptedException
 	 */
-	public void driveToDestination() {
+	public void driveToDestination() throws InterruptedException {
 		
 		// nothing to return when no passenger
 		if (this.currentPassenger == null) {
