@@ -3,8 +3,10 @@ package nuber.students;
 public class Driver extends Person {
 
 	
+	
 	public Driver(String driverName, int maxSleep)
 	{
+		
 	}
 	
 	/**
