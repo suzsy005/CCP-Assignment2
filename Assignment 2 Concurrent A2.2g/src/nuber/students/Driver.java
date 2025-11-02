@@ -37,6 +37,21 @@ public class Driver extends Person {
 	 * @throws InterruptedException
 	 */
 	public void driveToDestination() {
-	}
+		
+		// nothing to return when no passenger
+		if (this.currentPassenger == null) {
+			return;
+		}
+		
+		// get travel time by getTravelTime
+		int travelTime = this.currentPassenger.getTravelTime();
+		
+		// sleep on travelTime
+		Thread.sleep(travelTime);
+		
+		// clear a passenger when arrives
+		this.currentPassenger = null;
+		
+		
 	
 }
