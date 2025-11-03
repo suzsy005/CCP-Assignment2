@@ -3,6 +3,7 @@ package nuber.students;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Future;
+import java.util.atomic.AtomicInteger;
 
 /**
  * The core Dispatch class that instantiates and manages everything for Nuber
@@ -98,6 +99,7 @@ public class NuberDispatch {
 		{
 			Thread.currentThread().interrupt();
 			logEvent(null, "Driver acquisition interrupted.");
+			
 			return null;
 		}
 	}
@@ -141,6 +143,8 @@ public class NuberDispatch {
 	 */
 	public int getBookingsAwaitingDriver()
 	{
+		// return a current value of AtomicInteger
+		return bookingAwaitingDriver.get();
 	}
 	
 	/**
