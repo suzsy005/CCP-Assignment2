@@ -32,8 +32,8 @@ public class Booking implements Callable<BookingResult>	{
 	private final Passenger passenger;
 	private final long createdTime;
 	
-	
-	
+	// set an assigned driver
+	private Driver assignedDriver = null;
 
 		
 	/**
@@ -71,6 +71,15 @@ public class Booking implements Callable<BookingResult>	{
 	 * @return A BookingResult containing the final information about the booking 
 	 */
 	public BookingResult call() {
+		
+		// 1. asks Dispatch for an available driver
+		// 2. the booking must wait until a driver is available
+		assignedDriver = dispatch.getDriver();
+		dispatch.logEvent(this,  assignedDriver.name + "assigned. On way to passenger!");
+		
+		
+		
+		
 
 	}
 	
