@@ -132,6 +132,11 @@ public class NuberDispatch {
 	 * @return returns a Future<BookingResult> object
 	 */
 	public Future<BookingResult> bookPassenger(Passenger passenger, String region) {
+		
+		// rejects bookings when shutting down
+		if (isShuttingDown) {
+			logEvent(null, "Booking for " + passenger.name + " rejected: Dispatch is shutting down.")
+		}
 	}
 
 	/**
