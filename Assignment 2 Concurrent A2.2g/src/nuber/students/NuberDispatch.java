@@ -85,6 +85,21 @@ public class NuberDispatch {
 	 */
 	public Driver getDriver()
 	{
+		try
+		{
+			// if the queue is empty, it blocks a thread untill a driver is added
+			Driver driver = driverPool.take();
+			
+			// aftet this getDriver() is called inside of Booking.call(), then the counter decreases as the driver is assigned 
+			bookingAwaitingDriver.decrementAndGet();
+			return driver;
+		}
+		catch (InterruptedException e)
+		{
+			Thread.currentThread().interrupt();
+			logEvent(null, "Driver acquisition interrupted.");
+			return null;
+		}
 	}
 
 	/**
