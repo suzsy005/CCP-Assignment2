@@ -65,6 +65,15 @@ public class NuberDispatch {
 	 */
 	public boolean addDriver(Driver newDriver)
 	{
+		// put driver back to driverPool
+		boolean added = driverPool.offer(newDriver);
+		
+		if (added) {
+			logEvent(null, newDriver.name + " added to drier pool.");
+		}
+		
+		return added;
+		
 	}
 	
 	/**
