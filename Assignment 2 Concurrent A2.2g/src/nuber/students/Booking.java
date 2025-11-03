@@ -46,7 +46,12 @@ public class Booking implements Callable<BookingResult>	{
 	 */
 	public Booking(NuberDispatch dispatch, Passenger passenger)
 	{
+		this.bookingId = nextId.getAndIncrement();
+		this.dispatch = dispatch;
+		this.passenger = passenger;
 		
+		// get a created time
+		this.createdTime = new Date().getTime();
 	}
 	
 	/**
