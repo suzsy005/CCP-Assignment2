@@ -92,13 +92,7 @@ public class Booking implements Callable<BookingResult>	{
 		dispatch.addDriver(assignedDriver);
 		
 		// 7. returns a BookingResult obj
-		return new BookingResult(bookingId, passenger, assignedDriver, tripDuration);
-		
-		
-		
-		
-		
-		
+		return new BookingResult(bookingId, passenger, assignedDriver, tripDuration);		
 
 	}
 	
@@ -115,6 +109,11 @@ public class Booking implements Callable<BookingResult>	{
 	@Override
 	public String toString()
 	{
+		string driverName = (assignedDriver != null) ? assignedDriver.name : "null";
+		string passengerName = (passenger != null) ? passenger.name : "null";
+		
+		// follow the return style mentioned above
+		return bookingId + " : " + driverName + " : " + passnegerName;
 	}
 
 }
