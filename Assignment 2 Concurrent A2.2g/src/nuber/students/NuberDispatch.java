@@ -1,6 +1,7 @@
 package nuber.students;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Future;
 
 /**
@@ -18,6 +19,18 @@ public class NuberDispatch {
 	
 	private boolean logEvents = false;
 	
+	// a driver pool
+	private final BlockingQueue<Driver> driverPool;
+	
+	// maps the region and NuberRegion instance
+	private final Map<String, NuberRegion> regions;
+	
+	// in order to excute the all Booking tasks
+	private final ExecutoService executor;
+	
+	
+	
+	
 	/**
 	 * Creates a new dispatch objects and instantiates the required regions and any other objects required.
 	 * It should be able to handle a variable number of regions based on the HashMap provided.
@@ -27,6 +40,19 @@ public class NuberDispatch {
 	 */
 	public NuberDispatch(HashMap<String, Integer> regionInfo, boolean logEvents)
 	{
+		this.logEvents = logEvents;
+		
+		// initializes drivePool
+		this.driverPool = new ArrayBlockingQueue<>(MAX_DRIVERS);
+		// initializes regions (region map)
+		this.regions = new HashMap<>();
+		// initializes thread pool for task execution
+		this.executor = Executor.newCachedThreadPool();
+		
+		// creates NuberRegion by HashMap<String, Integer>
+		for (Map.Entry<String, Integer> entry : regionInfo.entrySet()) {
+			this.regions.put(entry.getKey(), new NuberRegion(entry.getKey(), entry.getValue());
+		}
 	}
 	
 	/**
