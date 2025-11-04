@@ -85,6 +85,12 @@ public class NuberRegion {
 	 */
 	public void shutdown()
 	{
+		// set the shut down flag
+		isShuttingDown = true;
+		
+		// don't receive any new tasks
+		regionExecutor.shutdown();
+		
 	}
 		
 }
