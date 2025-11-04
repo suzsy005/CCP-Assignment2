@@ -1,7 +1,10 @@
 package nuber.students;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.Semaphore;
+
 
 /**
  * A single Nuber region that operates independently of other regions, other than getting 
@@ -30,7 +33,6 @@ public class NuberRegion {
 	
 	private volatile bolean isShuttingDown = false;
 
-	
 	/**
 	 * Creates a new Nuber region
 	 * 
@@ -40,7 +42,15 @@ public class NuberRegion {
 	 */
 	public NuberRegion(NuberDispatch dispatch, String regionName, int maxSimultaneousJobs)
 	{
+		this.dispatch = dispatch;
+		this.regionName = regionName;
 		
+		// initialize Semaphore with maxSimultaneousJobs
+		this.jobLimiter = new Semaphore(maxSimultaneousJobs);
+		
+		// ExecutorService executes tasks in each region
+		// Thread uses SingleThreadExecutor() in order to use ExecutorService of Dispatch
+		this.regionExecutor = Executors.newSingleThreadExecutor();
 
 	}
 	
