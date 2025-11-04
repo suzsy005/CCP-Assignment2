@@ -173,6 +173,25 @@ public class NuberDispatch {
 	 * Tells all regions to finish existing bookings already allocated, and stop accepting new bookings
 	 */
 	public void shutdown() {
+		
+		// set the shut down flag
+		isShuttingDonw = true;
+		
+		// asks All of NuberRegion to shut down
+		for (NuberRegion region : regions.values()) {
+			region.shutdown();
+		}
+		
+		// asks ExecutorService not to take any new tasks
+		executor.shutdown();
+		
+		// 
+		
+		
 	}
-
 }
+
+
+
+
+
