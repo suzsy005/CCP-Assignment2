@@ -1,5 +1,6 @@
 package nuber.students;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 /**
@@ -17,6 +18,17 @@ import java.util.concurrent.Future;
  *
  */
 public class NuberRegion {
+	
+	private final NuberDispatch dispatch;
+	private final String regionName;
+	
+	// this semaphore is for limiting the number of tasks that happen at the same time
+	private final Semaphore jobLimiter;
+	
+	// this ExcecutorServie is for excecuting the booking tasks
+	private final ExcecutorService regionExecutor;
+	
+	private volatile bolean isShuttingDown = false;
 
 	
 	/**
