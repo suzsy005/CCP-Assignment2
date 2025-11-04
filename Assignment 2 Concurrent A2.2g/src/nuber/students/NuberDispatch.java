@@ -135,8 +135,25 @@ public class NuberDispatch {
 		
 		// rejects bookings when shutting down
 		if (isShuttingDown) {
-			logEvent(null, "Booking for " + passenger.name + " rejected: Dispatch is shutting down.")
+			logEvent(null, "Booking for " + passenger.name + " rejected: Dispatch is shutting down.");
+			return null;
 		}
+		
+		NuberRegion targetRegion = regions.get(region);
+		// if can't find the regions, return null
+		if (targetRegion == null) {
+			return null;
+		}
+		
+		// creates Booking obj
+		Booking newBooking = new Booking(this, passenger);
+		
+		// increase the counter of people waiting for drivers
+		bookingsAwaitingDriver.incrementAndGet();
+		
+		// gives newBooking to Region and returns Future<BookingResult> obj
+		return targetRegion.bookPassenger(newBooking);
+
 	}
 
 	/**
