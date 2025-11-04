@@ -67,6 +67,16 @@ public class NuberRegion {
 	 */
 	public Future<BookingResult> bookPassenger(Passenger waitingPassenger)
 	{		
+		// rejects a booking when shuttingd down
+		if (isShuttingDown) {
+			dispatch.logEvent(newBooking, "Booknig is rejected: Region is shutting down";
+			return null;
+		}
+		
+		dispatch.logEvent(newBooking, "Booking is received in region " + regionName + ", awaiting an available slot.");
+		
+		
+		
 		
 	}
 	
