@@ -89,7 +89,9 @@ public class NuberRegion {
 			}
 			catch (Exception e)
 			{
+				Thread.currentThread().interrupt();
 				dispatch.logEvent(booking, "Job inerrupted or failed: " + e.getMessage());
+				return newBooking.call();
 			}
 			finally
 			{
