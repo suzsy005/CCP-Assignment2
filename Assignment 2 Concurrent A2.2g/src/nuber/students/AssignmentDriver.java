@@ -64,6 +64,9 @@ public class AssignmentDriver {
 		regions.put("North", 50);
 		regions.put("South", 50);
 		
+		// couldn't figure out what is wrong and what to fix
+		// I'll check this our tomorrow
+		
 		//new Simulation(regions, 1, 10, 1000, logEvents);
 		//new Simulation(regions, 5, 10, 1000, logEvents);
 		//new Simulation(regions, 10, 10, 1000, logEvents);
