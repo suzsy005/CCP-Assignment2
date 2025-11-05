@@ -101,6 +101,12 @@ public class NuberRegion {
 					dispatch.logEvent(booking, "Job inerrupted or failed: " + e.getMessage());
 				}
 			}
+			
+			// return a Future that will provide the final BookingResult object from the completed booking
+			Future<BookingResult> future = regionExecutor.submit(newBooking);
+			
+			return future;
+			
 		}
 		
 		
