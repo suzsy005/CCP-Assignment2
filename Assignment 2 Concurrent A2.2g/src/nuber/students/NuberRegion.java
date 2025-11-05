@@ -75,6 +75,19 @@ public class NuberRegion {
 		
 		dispatch.logEvent(newBooking, "Booking is received in region " + regionName + ", awaiting an available slot.");
 		
+		// wrapper class to execute Booking as Future
+		class RegionJob implements Runnable{
+			
+			private final Booking booking;
+			
+			public RegionJob(Booking booking) {
+				this.booking = booking;
+			}
+			
+		}
+		
+		
+		
 		
 		
 		
