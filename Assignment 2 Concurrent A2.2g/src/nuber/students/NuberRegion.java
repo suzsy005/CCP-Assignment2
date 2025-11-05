@@ -100,6 +100,12 @@ public class NuberRegion {
 				{
 					dispatch.logEvent(booking, "Job inerrupted or failed: " + e.getMessage());
 				}
+				finally 
+				{
+					// release after finishing executing
+					jobLimiter.release();
+					dispatch.logEvent(newBooking, "Slot released.")
+				}
 			}
 			
 			// return a Future that will provide the final BookingResult object from the completed booking
