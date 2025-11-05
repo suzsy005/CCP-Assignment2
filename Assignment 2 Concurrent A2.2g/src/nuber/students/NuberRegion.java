@@ -157,8 +157,20 @@ public class NuberRegion {
 		// set the shut down flag
 		isShuttingDown = true;
 		
-		// don't receive any new tasks
+		// stop receiving any new tasks
 		regionExecutor.shutdown();
+		
+		// wait until RegionExecutor completes
+		try
+		{
+			// set only 10 seconds because Region task should finish soon
+			if (!regionExecutor.awaitTermination(10, TimeUnit.SECONDS)) {
+			}
+		}
+		catch (InterruptedException e)
+		{
+			Thread.currentThread().interrupt();
+		}
 		
 	}
 		
