@@ -84,6 +84,23 @@ public class NuberRegion {
 				this.booking = booking;
 			}
 			
+			@Override
+			public void run() {
+				
+				try
+				{
+					// wait until it's available
+					jobLimiter.acquire();
+					
+					// executes Booking.call() and get the result
+					booking.call();
+					
+				}
+				catch (Exception e)
+				{
+					dispatch.logEvent(booking, "Job inerrupted or failed: " + e.getMessage());
+				}
+			}
 		}
 		
 		
