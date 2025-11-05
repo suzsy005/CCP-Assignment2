@@ -188,8 +188,21 @@ public class NuberDispatch {
 		// asks ExecutorService not to take any new tasks
 		executor.shutdown();
 		
-		// 
-		
+		// wait until all the tasks finishes
+		try
+		{
+			// wait 60 seconds
+			if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+				logEvent(null, "Warning: Executor did not terminate in time. Some tasks may be outstanding.");
+				
+			}
+		}
+		catch (InterruptedException e)
+		{
+			Thread.currentThread().interrupt();
+			logEvent(null, "Dispatch shutdown process interrupted.");
+		}
+		logEvent(null, "Dispatch shutdonw complete.");
 		
 	}
 }
