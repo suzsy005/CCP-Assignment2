@@ -70,7 +70,8 @@ public class Booking implements Callable<BookingResult>	{
 	 *
 	 * @return A BookingResult containing the final information about the booking 
 	 */
-	public BookingResult call() {
+	@Override
+	public BookingResult call() throws Exception {
 		
 		// 1. asks Dispatch for an available driver
 		// 2. the booking must wait until a driver is available
@@ -79,7 +80,7 @@ public class Booking implements Callable<BookingResult>	{
 		
 		// 3. once it has a driver, it calls Driver.pickUpPassenger()
 		assignedDriver.pickUpPassenger(passenger);
-		dispatch.logEvent(this,  "Collected passenger. on way to destination");
+		dispatch.logEvent(this,  "Collected passenger. On way to destination!");
 		
 		// 4. then it calls Driver.driveToDestination()
 		assignedDriver.driveToDestination();
@@ -88,7 +89,7 @@ public class Booking implements Callable<BookingResult>	{
 		long tripDuration = new Date().getTime() - createdTime;
 		
 		// 6. the driver is now free and added back into Dispatch's list of available drivers
-		dispatch.logEvent(this, "At destination, driver is now free");
+		dispatch.logEvent(this, "At destination. Driver is now free");
 		dispatch.addDriver(assignedDriver);
 		
 		// 7. returns a BookingResult obj
