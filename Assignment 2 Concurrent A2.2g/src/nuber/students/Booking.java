@@ -109,11 +109,11 @@ public class Booking implements Callable<BookingResult>	{
 	@Override
 	public String toString()
 	{
-		string driverName = (assignedDriver != null) ? assignedDriver.name : "null";
-		string passengerName = (passenger != null) ? passenger.name : "null";
+		String driverName = (assignedDriver != null) ? assignedDriver.name : "null";
+		String passengerName = (passenger != null) ? passenger.name : "null";
 		
 		// follow the return style mentioned above
-		return bookingId + " : " + driverName + " : " + passnegerName;
+		return bookingId + " : " + driverName + " : " + passengerName;
 	}
 
 }
