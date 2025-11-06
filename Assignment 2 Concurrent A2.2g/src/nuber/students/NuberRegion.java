@@ -66,11 +66,11 @@ public class NuberRegion {
 	 * @param waitingPassenger
 	 * @return a Future that will provide the final BookingResult object from the completed booking
 	 */
-	public Future<BookingResult> bookPassenger(Passenger waitingPassenger)
+	public Future<BookingResult> bookPassenger(Booking newBooking)
 	{		
 		// rejects a booking when shuttingd down
 		if (isShuttingDown) {
-			dispatch.logEvent(newBooking, "Booknig is rejected: Region is shutting down");
+			dispatch.logEvent(newBooking, "Booknig is rejected: Region is shutting down.");
 			return null;
 		}
 		
@@ -81,24 +81,24 @@ public class NuberRegion {
 				// wait until it's available
 				jobLimiter.acquire();
 				
-				// executes Booking.call() and get the result
-				booking.call();
+				// get the slot and commence job
+				dispatch.logEvent(newBooking, "Acquired slot. Commencing job.");
 				
 				// executes call() from Booking
 				return newBooking.call();
 
 			}
-			catch (Exception e)
+			catch (InterruptedException e)
 			{
 				Thread.currentThread().interrupt();
-				dispatch.logEvent(newBooking, "Job inerrupted or failed: " + e.getMessage());
+				dispatch.logEvent(newBooking, "Booking interrupted.");
 				return null;
 			}
 			finally
 			{
 				// release after finishing executing
 				jobLimiter.release();
-				dispatch.logEvent(newBooking, "Slot released.")
+				dispatch.logEvent(newBooking, "Slot released.");
 
 			}
 		});
