@@ -38,7 +38,7 @@ public class Driver extends Person {
 	 */
 	public void driveToDestination() throws InterruptedException {
 		
-		// nothing to return when no passenger
+		// returns nothing when no passenger
 		if (this.currentPassenger == null) {
 			return;
 		}

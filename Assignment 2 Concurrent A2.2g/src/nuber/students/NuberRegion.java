@@ -3,6 +3,7 @@ package nuber.students;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Semaphore;
 
 
@@ -29,9 +30,9 @@ public class NuberRegion {
 	private final Semaphore jobLimiter;
 	
 	// this ExcecutorServie is for excecuting the booking tasks
-	private final ExcecutorService regionExecutor;
+	private final ExecutorService regionExecutor;
 	
-	private volatile bolean isShuttingDown = false;
+	private volatile boolean isShuttingDown = false;
 
 	/**
 	 * Creates a new Nuber region
@@ -69,7 +70,7 @@ public class NuberRegion {
 	{		
 		// rejects a booking when shuttingd down
 		if (isShuttingDown) {
-			dispatch.logEvent(newBooking, "Booknig is rejected: Region is shutting down";
+			dispatch.logEvent(newBooking, "Booknig is rejected: Region is shutting down");
 			return null;
 		}
 		
@@ -90,8 +91,8 @@ public class NuberRegion {
 			catch (Exception e)
 			{
 				Thread.currentThread().interrupt();
-				dispatch.logEvent(booking, "Job inerrupted or failed: " + e.getMessage());
-				return newBooking.call();
+				dispatch.logEvent(newBooking, "Job inerrupted or failed: " + e.getMessage());
+				return null;
 			}
 			finally
 			{
