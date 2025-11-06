@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -51,11 +53,11 @@ public class NuberDispatch {
 		// initializes regions (region map)
 		this.regions = new HashMap<>();
 		// initializes thread pool for task execution
-		this.executor = Executor.newCachedThreadPool();
+		this.executor = Executors.newCachedThreadPool();
 		
 		// creates NuberRegion by HashMap<String, Integer>
 		for (Map.Entry<String, Integer> entry : regionInfo.entrySet()) {
-			this.regions.put(entry.getKey(), new NuberRegion(entry.getKey(), entry.getValue());
+			this.regions.put(entry.getKey(), new NuberRegion(this, entry.getKey(), entry.getValue());
 		}
 	}
 	
@@ -95,7 +97,7 @@ public class NuberDispatch {
 			Driver driver = driverPool.take();
 			
 			// aftet this getDriver() is called inside of Booking.call(), then the counter decreases as the driver is assigned 
-			bookingAwaitingDriver.decrementAndGet();
+			bookingsAwaitingDriver.decrementAndGet();
 			return driver;
 		}
 		catch (InterruptedException e)
@@ -169,7 +171,7 @@ public class NuberDispatch {
 	public int getBookingsAwaitingDriver()
 	{
 		// return a current value of AtomicInteger
-		return bookingAwaitingDriver.get();
+		return bookingsAwaitingDriver.get();
 	}
 	
 	/**
@@ -178,7 +180,7 @@ public class NuberDispatch {
 	public void shutdown() {
 		
 		// set the shut down flag
-		isShuttingDonw = true;
+		isShuttingDown = true;
 		
 		// asks All of NuberRegion to shut down
 		for (NuberRegion region : regions.values()) {
