@@ -34,6 +34,12 @@ public class NuberDispatch {
 	// in order to excute the all Booking tasks
 	private final ExecutorService executor;
 	
+	// the counter to track the number of bookings that are waiting for a driver
+	private final AtomicInteger bookingsAwaitingDriver = new AtomicInteger(0);
+	
+	// shutdown flag
+	private volatile boolean isShuttingDown = false;
+	
 	
 	
 	
@@ -57,7 +63,7 @@ public class NuberDispatch {
 		
 		// creates NuberRegion by HashMap<String, Integer>
 		for (Map.Entry<String, Integer> entry : regionInfo.entrySet()) {
-			this.regions.put(entry.getKey(), new NuberRegion(this, entry.getKey(), entry.getValue());
+			this.regions.put(entry.getKey(), new NuberRegion(this, entry.getKey(), entry.getValue()));
 		}
 	}
 	
@@ -145,7 +151,7 @@ public class NuberDispatch {
 		}
 		
 		NuberRegion targetRegion = regions.get(region);
-		// if can't find the regions, return null
+		// returns null if can't find the regions
 		if (targetRegion == null) {
 			return null;
 		}
@@ -202,7 +208,7 @@ public class NuberDispatch {
 		catch (InterruptedException e)
 		{
 			Thread.currentThread().interrupt();
-			logEvent(null, "Dispatch shutdown process interrupted.");
+//			logEvent(null, "Dispatch shutdown process interrupted.");
 		}
 		logEvent(null, "Dispatch shutdonw complete.");
 		
