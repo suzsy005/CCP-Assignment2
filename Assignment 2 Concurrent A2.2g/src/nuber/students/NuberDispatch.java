@@ -30,7 +30,7 @@ public class NuberDispatch {
 	private final Map<String, NuberRegion> regions;
 	
 	// in order to excute the all Booking tasks
-	private final ExecutoService executor;
+	private final ExecutorService executor;
 	
 	
 	

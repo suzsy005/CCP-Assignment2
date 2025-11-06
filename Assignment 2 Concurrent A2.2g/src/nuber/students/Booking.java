@@ -78,7 +78,7 @@ public class Booking implements Callable<BookingResult>	{
 		dispatch.logEvent(this,  assignedDriver.name + "assigned. On way to passenger!");
 		
 		// 3. once it has a driver, it calls Driver.pickUpPassenger()
-		assignedDriver.Driver.pickUpPassenger(passenger);
+		assignedDriver.pickUpPassenger(passenger);
 		dispatch.logEvent(this,  "Collected passenger. on way to destination");
 		
 		// 4. then it calls Driver.driveToDestination()

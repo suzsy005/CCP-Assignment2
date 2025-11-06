@@ -51,7 +51,7 @@ public class Driver extends Person {
 		
 		// clear a passenger when arrives
 		this.currentPassenger = null;
-		
-		
-	
+
+	}
 }
+	
