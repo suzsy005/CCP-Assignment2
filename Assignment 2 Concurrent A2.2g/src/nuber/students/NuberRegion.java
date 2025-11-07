@@ -103,50 +103,7 @@ public class NuberRegion {
 			}
 		});
 		
-		return future;
-		
-		
-//		dispatch.logEvent(newBooking, "Booking is received in region " + regionName + ", awaiting an available slot.");
-//		
-//		// wrapper class to execute Booking as Future
-//		class RegionJob implements Runnable{
-//			
-//			private final Booking booking;
-//			
-//			public RegionJob(Booking booking) {
-//				this.booking = booking;
-//			}
-//			
-//			@Override
-//			public void run() {
-//				
-//				try
-//				{
-//					// wait until it's available
-//					jobLimiter.acquire();
-//					
-//					// executes Booking.call() and get the result
-//					booking.call();
-//					
-//				}
-//				catch (Exception e)
-//				{
-//					dispatch.logEvent(booking, "Job inerrupted or failed: " + e.getMessage());
-//				}
-//				finally 
-//				{
-//					// release after finishing executing
-//					jobLimiter.release();
-//					dispatch.logEvent(newBooking, "Slot released.")
-//				}
-//			}
-//			
-//			// return a Future that will provide the final BookingResult object from the completed booking
-//			Future<BookingResult> future = regionExecutor.submit(newBooking);
-//			
-//			return future;
-//			
-//		}		
+		return future;	
 		
 	}
 	
